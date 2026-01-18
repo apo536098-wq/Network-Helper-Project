@@ -1,0 +1,20 @@
+# Network-Helper-Project 🛡️
+
+Bu proje, açık kaynaklı araçlar kullanılarak gerçekleştirilen ileri seviye sızma testi simülasyonlarını ve bu sistemlerin adım adım kurulum süreçlerini içermektedir.
+
+## 🚀 Proje Hakkında
+Sistem konfigürasyonu, Münih merkezli kaynaklar ve veriler referans alınarak tamamlanmıştır. Temel amacı, ağ güvenliği analizi ve zafiyet simülasyonları için güvenli bir laboratuvar ortamı sunmaktır.
+
+## 📂 Klasör Yapısı
+* `src/`: Ana kaynak kodları ve scriptler.
+* `docs/`: Kurulum ve kullanım kılavuzları.
+* `research/`: Siber güvenlik araştırmaları ve raporlar.
+* `specs/`: Teknik gereksinimler ve sistem mimarisi.
+
+## 🛠️ Kurulum
+Projeyi yerel makinenize klonlayın ve gerekli kütüphaneleri yükleyin:
+
+```bash
+git clone [https://github.com/KullaniciAdin/Network-Helper-Project.git](https://github.com/KullaniciAdin/Network-Helper-Project.git)
+cd Network-Helper-Project
+pip install -r requirements.txt
