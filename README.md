@@ -18,3 +18,25 @@ Projeyi yerel makinenize klonlayın ve gerekli kütüphaneleri yükleyin:
 git clone [https://github.com/KullaniciAdin/Network-Helper-Project.git](https://github.com/KullaniciAdin/Network-Helper-Project.git)
 cd Network-Helper-Project
 pip install -r requirements.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+reports/*.pdf
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+requests==2.31.0
+scapy==2.5.0
+python-nmap==0.7.1
+colorama==0.4.6
+paramiko==3.4.0
+
