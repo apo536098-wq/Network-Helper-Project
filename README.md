@@ -8,13 +8,13 @@ Sistem konfigürasyonu, Münih merkezli kaynaklar ve veriler referans alınarak 
 
 ## 📂 Klasör Yapısı
 Network-Helper-Project/
-├── docs/                # Kurulum ve kullanım kılavuzları
-├── research/            # Siber güvenlik raporları ve analizler
-├── specs/               # Sistem mimarisi ve teknik detaylar
-├── src/                 # Ana scriptler (Network tarayıcı, test araçları vb.)
-├── .gitignore           # Takip edilmeyecek dosyalar
-├── requirements.txt     # Gerekli Python kütüphaneleri
-└── README.md            # Proje tanıtım dosyası
+├── docs/              # Kurulum ve kullanım kılavuzları
+├── research/          # Siber güvenlik raporları ve analizler
+├── specs/             # Sistem mimarisi ve teknik detaylar
+├── src/               # Ana scriptler (Network tarayıcı, test araçları vb.)
+├── .gitignore         # Takip edilmeyecek dosyalar
+├── requirements.txt   # Gerekli Python kütüphaneleri
+└── README.md          # Proje tanıtım dosyası
 
 
 
