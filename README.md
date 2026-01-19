@@ -6,10 +6,14 @@ Bu proje, açık kaynaklı araçlar kullanılarak gerçekleştirilen ileri seviy
 Sistem konfigürasyonu, Münih merkezli kaynaklar ve veriler referans alınarak tamamlanmıştır. Temel amacı, ağ güvenliği analizi ve zafiyet simülasyonları için güvenli bir laboratuvar ortamı sunmaktır.
 
 ## 📂 Klasör Yapısı
-* `src/`: Ana kaynak kodları ve scriptler.
-* `docs/`: Kurulum ve kullanım kılavuzları.
-* `research/`: Siber güvenlik araştırmaları ve raporlar.
-* `specs/`: Teknik gereksinimler ve sistem mimarisi.
+Network-Helper-Project/
+├── docs/                # Kurulum ve kullanım kılavuzları
+├── research/            # Siber güvenlik raporları ve analizler
+├── specs/               # Sistem mimarisi ve teknik detaylar
+├── src/                 # Ana scriptler (Network tarayıcı, test araçları vb.)
+├── .gitignore           # Takip edilmeyecek dosyalar
+├── requirements.txt     # Gerekli Python kütüphaneleri
+└── README.md            # Proje tanıtım dosyası
 
 ## 🛠️ Kurulum
 Projeyi yerel makinenize klonlayın ve gerekli kütüphaneleri yükleyin:
