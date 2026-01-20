@@ -80,3 +80,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+## 👥 Katkıda Bulunanlar (Contributors)
+* [Kadir] - Geliştirici & Ağ Güvenliği Analisti
