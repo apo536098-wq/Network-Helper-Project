@@ -1,74 +1,65 @@
-# 🛡️ Network-Helper-Project
+Network-Helper-Project 🛡️
+Bu proje, açık kaynaklı araçlar kullanılarak gerçekleştirilen ileri seviye sızma testi simülasyonlarını ve bu sistemlerin adım adım kurulum süreçlerini içermektedir.
 
-&lt;div align="center"&gt;
+🚀 Proje Hakkında
+Sistem konfigürasyonu, Münih merkezli kaynaklar ve veriler referans alınarak tamamlanmıştır. Temel amacı, ağ güvenliği analizi ve zafiyet simülasyonları için güvenli bir laboratuvar ortamı sunmaktır.
 
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Scapy](https://img.shields.io/badge/Scapy-2.4+-F15A24?style=for-the-badge&logo=wireshark&logoColor=white)](https://scapy.net/)
-[![Nmap](https://img.shields.io/badge/Nmap-7.80+-0040FF?style=for-the-badge&logo=gnometerminal&logoColor=white)](https://nmap.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)]()
+📂 Klasör Yapısı
+src/: Ana kaynak kodları ve scriptler.
+docs/: Kurulum ve kullanım kılavuzları.
+research/: Siber güvenlik araştırmaları ve raporlar.
+specs/: Teknik gereksinimler ve sistem mimarisi
+🛠️ Kurulum
+Projeyi yerel makinenize klonlayın ve gerekli kütüphaneleri yükleyin:
 
-*Ağ güvenliği analizi ve zafiyet simülasyonları için güvenli laboratuvar ortamı*
+import scapy.all as scapy import nmap from colorama import Fore, Style, init
 
-&lt;/div&gt;
+init(autoreset=True)
 
----
+class NetworkHelper: def init(self): self.nm = nmap.PortScanner()
 
-## 📋 İçindekiler
+def scan_network(self, ip_range):
+    """ARP isteği ile ağdaki aktif cihazları bulur."""
+    print(f"\n{Fore.CYAN}[*] {ip_range} aralığında cihazlar keşfediliyor...{Style.RESET_ALL}")
 
-- [Proje Hakkında](#-proje-hakkında)
-- [Özellikler](#-özellikler)
-- [Klasör Yapısı](#-klasör-yapısı)
-- [Gereksinimler](#-gereksinimler)
-- [Kurulum](#-kurulum)
-- [Kullanım](#-kullanım)
-- [Ekran Görüntüleri](#-ekran-görüntüleri)
-- [Sorumluluk Reddi](#-sorumluluk-reddi)
-- [Katkıda Bulunanlar](#-katkıda-bulunanlar)
+    arp_request = scapy.ARP(pdst=ip_range)
+    broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
+    arp_request_broadcast = broadcast / arp_request
+    answered_list = scapy.srp(arp_request_broadcast, timeout=1, verbose=False)[0]
 
----
+    clients_list = []
+    for element in answered_list:
+        client_dict = {"ip": element[1].psrc, "mac": element[1].hwsrc}
+        clients_list.append(client_dict)
+    return clients_list
 
-## 🚀 Proje Hakkında
+def scan_ports(self, target_ip):
+    """Belirli bir IP adresindeki kritik portları tarar."""
+    print(f"\n{Fore.YELLOW}[!] {target_ip} için port taraması başlatıldı...{Style.RESET_ALL}")
+    # Yaygın portlar: 21(FTP), 22(SSH), 80(HTTP), 443(HTTPS)
+    self.nm.scan(target_ip, '21,22,80,443')
 
-**Network-Helper-Project**, açık kaynaklı güvenlik araçları kullanılarak geliştirilmiş ileri seviye ağ keşif ve zafiyet tespit simülasyonlarını içeren bir sızma testi laboratuvarıdır.
+    for proto in self.nm[target_ip].all_protocols():
+        lport = self.nm[target_ip][proto].keys()
+        for port in lport:
+            state = self.nm[target_ip][proto][port]['state']
+            print(f"{Fore.GREEN}[+] Port: {port}\tDurum: {state}{Style.RESET_ALL}")
+def main(): print(f"{Fore.MAGENTA}=== Network-Helper-Project v1.0 ==={Style.RESET_ALL}") scanner = NetworkHelper()
 
-&gt; ⚠️ **Not:** Bu proje yalnızca **yetkili ağlar** üzerinde eğitim ve araştırma amaçlı kullanılmalıdır.
+# Kendi ağ aralığınıza göre düzenleyin (Örn: 192.168.1.1/24)
+target_range = input("192.168.1.0/24")
 
-### 🎯 Temel Amaçlar
-- Ağ güvenliği analizi için güvenli test ortamı sunmak
-- ARP tabanlı ağ keşfi simülasyonları
-- Port tarama ve servis analizi
-- Siber güvenlik eğitimlerinde pratik uygulamalar
+found_devices = scanner.scan_network(target_range)
 
----
+print("\nIP Adresi\t\tMAC Adresi")
+print("-" * 40)
+for device in found_devices:
+    print(f"{device['ip']}\t\t{device['mac']}")
 
-## ✨ Özellikler
+if found_devices:
+    choice = input(f"\n{Fore.BLUE}Detaylı port taraması yapmak istediğiniz IP'yi seçin: {Style.RESET_ALL}")
+    scanner.scan_ports(choice)
+if name == "main": main()
 
-| Özellik | Açıklama |
-|---------|----------|
-| 🔍 **ARP Tarama** | Ağdaki aktif cihazları IP ve MAC adresleriyle keşfetme |
-| 🚪 **Port Tarama** | Kritik portların (21, 22, 80, 443) durum analizi |
-| 🎨 **Renkli Çıktı** | `colorama` ile terminalde okunabilir raporlama |
-| ⚡ **Hızlı Tarama** | `python-nmap` ile optimize edilmiş tarama süreleri |
-| 🔧 **Modüler Yapı** | Kolay genişletilebilir sınıf tabanlı mimari |
-
----
-
-## 📂 Klasör Yapısı
-Network-Helper-Project/
-├── 📁 src/           # Ana kaynak kodları ve scriptler
-├── 📁 docs/          # Kurulum ve kullanım kılavuzları
-├── 📁 research/      # Siber güvenlik araştırmaları ve raporlar
-├── 📁 specs/         # Teknik gereksinimler ve sistem mimarisi
-├── 📄 README.md      # Proje dokümantasyonu
-└── 📄 LICENSE        # Lisans dosyası
-
-
-
----
-
-## 🛠️ Gereksinimler
-
-- Python 3.8+
-- Root/Administrator yetkileri (ağ taramaları için)
-
+👥 Katkıda Bulunanlar (Contributors)
+[Kadir] - Geliştirici & Ağ Güvenliği Analisti
