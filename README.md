@@ -1,88 +1,31 @@
-# Network-Helper-Project 🛡️
-
-Bu proje, açık kaynaklı araçlar kullanılarak gerçekleştirilen ileri seviye sızma testi simülasyonlarını ve bu sistemlerin adım adım kurulum süreçlerini içermektedir.
-
-## 🚀 Proje Hakkında
-Sistem konfigürasyonu, Münih merkezli kaynaklar ve veriler referans alınarak tamamlanmıştır. Temel amacı, ağ güvenliği analizi ve zafiyet simülasyonları için güvenli bir laboratuvar ortamı sunmaktır.
-
-
-## 📂 Klasör Yapısı
-* `src/`: Ana kaynak kodları ve scriptler.
-* `docs/`: Kurulum ve kullanım kılavuzları.
-* `research/`: Siber güvenlik araştırmaları ve raporlar.
-* `specs/`: Teknik gereksinimler ve sistem mimarisi
-
-
-
-
-## 🛠️ Kurulum
-Projeyi yerel makinenize klonlayın ve gerekli kütüphaneleri yükleyin:
-
-
-
-import scapy.all as scapy
-import nmap
-from colorama import Fore, Style, init
-
-init(autoreset=True)
-
-
-class NetworkHelper:
-    def __init__(self):
-        self.nm = nmap.PortScanner()
-
-    def scan_network(self, ip_range):
-        """ARP isteği ile ağdaki aktif cihazları bulur."""
-        print(f"\n{Fore.CYAN}[*] {ip_range} aralığında cihazlar keşfediliyor...{Style.RESET_ALL}")
-
-        arp_request = scapy.ARP(pdst=ip_range)
-        broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
-        arp_request_broadcast = broadcast / arp_request
-        answered_list = scapy.srp(arp_request_broadcast, timeout=1, verbose=False)[0]
-
-        clients_list = []
-        for element in answered_list:
-            client_dict = {"ip": element[1].psrc, "mac": element[1].hwsrc}
-            clients_list.append(client_dict)
-        return clients_list
-
-    def scan_ports(self, target_ip):
-        """Belirli bir IP adresindeki kritik portları tarar."""
-        print(f"\n{Fore.YELLOW}[!] {target_ip} için port taraması başlatıldı...{Style.RESET_ALL}")
-        # Yaygın portlar: 21(FTP), 22(SSH), 80(HTTP), 443(HTTPS)
-        self.nm.scan(target_ip, '21,22,80,443')
-
-        for proto in self.nm[target_ip].all_protocols():
-            lport = self.nm[target_ip][proto].keys()
-            for port in lport:
-                state = self.nm[target_ip][proto][port]['state']
-                print(f"{Fore.GREEN}[+] Port: {port}\tDurum: {state}{Style.RESET_ALL}")
-
-
-def main():
-    print(f"{Fore.MAGENTA}=== Network-Helper-Project v1.0 ==={Style.RESET_ALL}")
-    scanner = NetworkHelper()
-
-    # Kendi ağ aralığınıza göre düzenleyin (Örn: 192.168.1.1/24)
-    target_range = input("192.168.1.0/24")
-
-    found_devices = scanner.scan_network(target_range)
-
-    print("\nIP Adresi\t\tMAC Adresi")
-    print("-" * 40)
-    for device in found_devices:
-        print(f"{device['ip']}\t\t{device['mac']}")
-
-    if found_devices:
-        choice = input(f"\n{Fore.BLUE}Detaylı port taraması yapmak istediğiniz IP'yi seçin: {Style.RESET_ALL}")
-        scanner.scan_ports(choice)
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-
-## 👥 Katkıda Bulunanlar (Contributors)
-* [Kadir] - Geliştirici & Ağ Güvenliği Analisti
+<img width="300" height="150" alt="markmap" src="https://github.com/user-attachments/assets/2ba4f27d-c724-472f-9111-b3f858790c26" />
+<svg xmlns="http://www.w3.org/2000/svg" class="markmap mm-cd8yse-4" style="width: 100%; height: 100%;"><style>.markmap{--markmap-max-width: 9999px;--markmap-a-color: #0097e6;--markmap-a-hover-color: #00a8ff;--markmap-code-bg: #f0f0f0;--markmap-code-color: #555;--markmap-highlight-bg: #ffeaa7;--markmap-table-border: 1px solid currentColor;--markmap-font: 300 16px/20px sans-serif;--markmap-circle-open-bg: #fff;--markmap-text-color: #333;--markmap-highlight-node-bg: #ff02;font:var(--markmap-font);color:var(--markmap-text-color)}.markmap-link{fill:none}.markmap-node&gt;circle{cursor:pointer}.markmap-foreign{display:inline-block}.markmap-foreign p{margin:0}.markmap-foreign a{color:var(--markmap-a-color)}.markmap-foreign a:hover{color:var(--markmap-a-hover-color)}.markmap-foreign code{padding:.25em;font-size:calc(1em - 2px);color:var(--markmap-code-color);background-color:var(--markmap-code-bg);border-radius:2px}.markmap-foreign pre{margin:0}.markmap-foreign pre&gt;code{display:block}.markmap-foreign del{text-decoration:line-through}.markmap-foreign em{font-style:italic}.markmap-foreign strong{font-weight:700}.markmap-foreign mark{background:var(--markmap-highlight-bg)}.markmap-foreign table,.markmap-foreign th,.markmap-foreign td{border-collapse:collapse;border:var(--markmap-table-border)}.markmap-foreign img{display:inline-block}.markmap-foreign svg{fill:currentColor}.markmap-foreign&gt;div{width:var(--markmap-max-width);text-align:left}.markmap-foreign&gt;div&gt;div{display:inline-block}.markmap-highlight rect{fill:var(--markmap-highlight-node-bg)}.markmap-dark .markmap{--markmap-code-bg: #1a1b26;--markmap-code-color: #ddd;--markmap-circle-open-bg: #444;--markmap-text-color: #eee}</style><g transform="translate(20.000000000000057,335.8266309204647) scale(0.679177837354781)"><path class="markmap-link" data-depth="3" data-path="1.2.3" d="M399,-161.984C439,-161.984,439,-267.672,479,-267.672" stroke-width="1.375" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="3" data-path="1.2.4" d="M399,-161.984C439,-161.984,439,-241.297,479,-241.297" stroke-width="1.375" stroke="rgb(214, 39, 40)"/><path class="markmap-link" data-depth="3" data-path="1.2.5" d="M399,-161.984C439,-161.984,439,-214.922,479,-214.922" stroke-width="1.375" stroke="rgb(148, 103, 189)"/><path class="markmap-link" data-depth="3" data-path="1.2.6" d="M399,-161.984C439,-161.984,439,-188.547,479,-188.547" stroke-width="1.375" stroke="rgb(140, 86, 75)"/><path class="markmap-link" data-depth="3" data-path="1.2.7" d="M399,-161.984C439,-161.984,439,-162.172,479,-162.172" stroke-width="1.375" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="3" data-path="1.2.8" d="M399,-161.984C439,-161.984,439,-135.797,479,-135.797" stroke-width="1.375" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="3" data-path="1.2.9" d="M399,-161.984C439,-161.984,439,-109.422,479,-109.422" stroke-width="1.375" stroke="rgb(188, 189, 34)"/><path class="markmap-link" data-depth="3" data-path="1.2.10" d="M399,-161.984C439,-161.984,439,-83.047,479,-83.047" stroke-width="1.375" stroke="rgb(23, 190, 207)"/><path class="markmap-link" data-depth="3" data-path="1.2.11" d="M399,-161.984C439,-161.984,439,-56.672,479,-56.672" stroke-width="1.375" stroke="rgb(31, 119, 180)"/><path class="markmap-link" data-depth="4" data-path="1.12.13.14" d="M662,-25.297C702,-25.297,702,-64.672,742,-64.672" stroke-width="1.1875" stroke="rgb(214, 39, 40)"/><path class="markmap-link" data-depth="4" data-path="1.12.13.15" d="M662,-25.297C702,-25.297,702,-38.484,742,-38.484" stroke-width="1.1875" stroke="rgb(148, 103, 189)"/><path class="markmap-link" data-depth="4" data-path="1.12.13.16" d="M662,-25.297C702,-25.297,702,-12.297,742,-12.297" stroke-width="1.1875" stroke="rgb(140, 86, 75)"/><path class="markmap-link" data-depth="4" data-path="1.12.13.17" d="M662,-25.297C702,-25.297,702,13.891,742,13.891" stroke-width="1.1875" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="3" data-path="1.12.13" d="M437,-25.109C477,-25.109,477,-25.297,517,-25.297" stroke-width="1.375" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="3" data-path="1.18.19" d="M393,98.859C433,98.859,433,152.172,473,152.172" stroke-width="1.375" stroke="rgb(188, 189, 34)"/><path class="markmap-link" data-depth="2" data-path="1.2" d="M207,11.25C247,11.25,247,-161.984,287,-161.984" stroke-width="1.75" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="2" data-path="1.12" d="M207,11.25C247,11.25,247,-25.109,287,-25.109" stroke-width="1.75" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="2" data-path="1.18" d="M207,11.25C247,11.25,247,98.859,287,98.859" stroke-width="1.75" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="2" data-path="1.20" d="M207,11.25C247,11.25,247,183.734,287,183.734" stroke-width="1.75" stroke="rgb(23, 190, 207)"/><g class="markmap-highlight"/><g data-depth="3" data-path="1.2.3" class="markmap-node" transform="translate(479, -288.359375)"><line stroke="#2ca02c" stroke-width="1.375" x1="-1" x2="127" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="109" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-proje-hakk%C4%B1nda">Proje Hakkında</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.4" class="markmap-node" transform="translate(479, -261.984375)"><line stroke="#d62728" stroke-width="1.375" x1="-1" x2="84" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="66" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-%C3%B6zellikler">Özellikler</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.5" class="markmap-node" transform="translate(479, -235.609375)"><line stroke="#9467bd" stroke-width="1.375" x1="-1" x2="112" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="94" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-klas%C3%B6r-yap%C4%B1s%C4%B1">Klasör Yapısı</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.6" class="markmap-node" transform="translate(479, -209.234375)"><line stroke="#8c564b" stroke-width="1.375" x1="-1" x2="117" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="99" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-gereksinimler">Gereksinimler</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.7" class="markmap-node" transform="translate(479, -182.859375)"><line stroke="#e377c2" stroke-width="1.375" x1="-1" x2="78" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="60" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-kurulum">Kurulum</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.8" class="markmap-node" transform="translate(479, -156.484375)"><line stroke="#7f7f7f" stroke-width="1.375" x1="-1" x2="80" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="62" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-kullan%C4%B1m">Kullanım</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.9" class="markmap-node" transform="translate(479, -130.109375)"><line stroke="#bcbd22" stroke-width="1.375" x1="-1" x2="143" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="125" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-ekran-g%C3%B6r%C3%BCnt%C3%BCleri">Ekran Görüntüleri</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.10" class="markmap-node" transform="translate(479, -103.734375)"><line stroke="#17becf" stroke-width="1.375" x1="-1" x2="144" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="126" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-sorumluluk-reddi">Sorumluluk Reddi</a></div></div></foreignObject></g><g data-depth="3" data-path="1.2.11" class="markmap-node" transform="translate(479, -77.359375)"><line stroke="#1f77b4" stroke-width="1.375" x1="-1" x2="153" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="135" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="#-katk%C4%B1da-bulunanlar">Katkıda Bulunanlar</a></div></div></foreignObject></g><g data-depth="2" data-path="1.2" class="markmap-node" transform="translate(287, -182.859375)"><line stroke="#ff7f0e" stroke-width="1.75" x1="-1" x2="114" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#ff7f0e" fill="var(--markmap-circle-open-bg)" cx="112" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="96" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">📋 İçindekiler</div></div></foreignObject></g><g data-depth="4" data-path="1.12.13.14" class="markmap-node" transform="translate(742, -85.265625)"><line stroke="#d62728" stroke-width="1.1875" x1="-1" x2="379" y1="20.59375" y2="20.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="361" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Ağ güvenliği analizi için güvenli test ortamı sunmak</div></div></foreignObject></g><g data-depth="4" data-path="1.12.13.15" class="markmap-node" transform="translate(742, -59.078125)"><line stroke="#9467bd" stroke-width="1.1875" x1="-1" x2="269" y1="20.59375" y2="20.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="251" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">ARP tabanlı ağ keşfi simülasyonları</div></div></foreignObject></g><g data-depth="4" data-path="1.12.13.16" class="markmap-node" transform="translate(742, -32.890625)"><line stroke="#8c564b" stroke-width="1.1875" x1="-1" x2="219" y1="20.59375" y2="20.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="201" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Port tarama ve servis analizi</div></div></foreignObject></g><g data-depth="4" data-path="1.12.13.17" class="markmap-node" transform="translate(742, -6.703125)"><line stroke="#e377c2" stroke-width="1.1875" x1="-1" x2="349" y1="20.59375" y2="20.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="331" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Siber güvenlik eğitimlerinde pratik uygulamalar</div></div></foreignObject></g><g data-depth="3" data-path="1.12.13" class="markmap-node" transform="translate(517, -45.984375)"><line stroke="#2ca02c" stroke-width="1.375" x1="-1" x2="147" y1="20.6875" y2="20.6875"/><circle stroke-width="1.5" r="6" stroke="#2ca02c" fill="var(--markmap-circle-open-bg)" cx="145" cy="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="129" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">🎯 Temel Amaçlar</div></div></foreignObject></g><g data-depth="2" data-path="1.12" class="markmap-node" transform="translate(287, -45.984375)"><line stroke="#ff7f0e" stroke-width="1.75" x1="-1" x2="152" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#ff7f0e" fill="var(--markmap-circle-open-bg)" cx="150" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="134" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">🚀 Proje Hakkında</div></div></foreignObject></g><g data-depth="3" data-path="1.18.19" class="markmap-node" transform="translate(473, 24.484375)"><line stroke="#bcbd22" stroke-width="1.375" x1="-1" x2="528" y1="127.6875" y2="127.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="510" height="127"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><table data-lines="46,53">
+<thead data-lines="46,47">
+<tr data-lines="46,47">
+<th>Özellik</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody data-lines="48,53">
+<tr data-lines="48,49">
+<td>🔍 <strong>ARP Tarama</strong></td>
+<td>Ağdaki aktif cihazları IP ve MAC adresleriyle keşfetme</td>
+</tr>
+<tr data-lines="49,50">
+<td>🚪 <strong>Port Tarama</strong></td>
+<td>Kritik portların (21, 22, 80, 443) durum analizi</td>
+</tr>
+<tr data-lines="50,51">
+<td>🎨 <strong>Renkli Çıktı</strong></td>
+<td><code>colorama</code> ile terminalde okunabilir raporlama</td>
+</tr>
+<tr data-lines="51,52">
+<td>⚡ <strong>Hızlı Tarama</strong></td>
+<td><code>python-nmap</code> ile optimize edilmiş tarama süreleri</td>
+</tr>
+<tr data-lines="52,53">
+<td>🔧 <strong>Modüler Yapı</strong></td>
+<td>Kolay genişletilebilir sınıf tabanlı mimari</td>
+</tr>
+</tbody>
+</table></div></div></foreignObject></g><g data-depth="2" data-path="1.18" class="markmap-node" transform="translate(287, 77.984375)"><line stroke="#7f7f7f" stroke-width="1.75" x1="-1" x2="108" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#7f7f7f" fill="var(--markmap-circle-open-bg)" cx="106" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="90" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">✨ Özellikler</div></div></foreignObject></g><g data-depth="2" data-path="1.20" class="markmap-node" transform="translate(287, 162.859375)"><line stroke="#17becf" stroke-width="1.75" x1="-1" x2="136" y1="20.875" y2="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="118" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">📂 Klasör Yapısı</div></div></foreignObject></g><g data-depth="1" data-path="1" class="markmap-node" transform="translate(0, -10)"><line stroke="#1f77b4" stroke-width="2.5" x1="-1" x2="209" y1="21.25" y2="21.25"/><circle stroke-width="1.5" r="6" stroke="#1f77b4" fill="var(--markmap-circle-open-bg)" cx="207" cy="21.25"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="191" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">🛡️ Network-Helper-Project</div></div></foreignObject></g></g></svg>
