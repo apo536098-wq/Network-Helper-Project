@@ -1,6 +1,6 @@
 # 🛡️ Network-Helper-Project
 
-<div align="center">
+&lt;div align="center"&gt;
 
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Scapy](https://img.shields.io/badge/Scapy-2.4+-F15A24?style=for-the-badge&logo=wireshark&logoColor=white)](https://scapy.net/)
@@ -10,7 +10,7 @@
 
 *Ağ güvenliği analizi ve zafiyet simülasyonları için güvenli laboratuvar ortamı*
 
-</div>
+&lt;/div&gt;
 
 ---
 
@@ -32,7 +32,7 @@
 
 **Network-Helper-Project**, açık kaynaklı güvenlik araçları kullanılarak geliştirilmiş ileri seviye ağ keşif ve zafiyet tespit simülasyonlarını içeren bir sızma testi laboratuvarıdır.
 
-> ⚠️ **Not:** Bu proje yalnızca **yetkili ağlar** üzerinde eğitim ve araştırma amaçlı kullanılmalıdır.
+&gt; ⚠️ **Not:** Bu proje yalnızca **yetkili ağlar** üzerinde eğitim ve araştırma amaçlı kullanılmalıdır.
 
 ### 🎯 Temel Amaçlar
 - Ağ güvenliği analizi için güvenli test ortamı sunmak
@@ -55,3 +55,20 @@
 ---
 
 ## 📂 Klasör Yapısı
+Network-Helper-Project/
+├── 📁 src/           # Ana kaynak kodları ve scriptler
+├── 📁 docs/          # Kurulum ve kullanım kılavuzları
+├── 📁 research/      # Siber güvenlik araştırmaları ve raporlar
+├── 📁 specs/         # Teknik gereksinimler ve sistem mimarisi
+├── 📄 README.md      # Proje dokümantasyonu
+└── 📄 LICENSE        # Lisans dosyası
+
+
+
+---
+
+## 🛠️ Gereksinimler
+
+- Python 3.8+
+- Root/Administrator yetkileri (ağ taramaları için)
+
